@@ -1,6 +1,9 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Support_system.Models.Entities
 {
@@ -9,17 +12,16 @@ namespace Support_system.Models.Entities
         [Key]
         public int Id { get; set; }
 
-        [StringLength(20)]
-        public string? NotStarted { get; set; } = null!;
+        [StringLength(50)]
+        public string NotStarted { get; set; } = "Ej Påbörjad";
 
-        [StringLength(20)]
-        public string? Started { get; set; } = null!;
+        [StringLength(50)]
+        public string Started { get; set; } = "Påbörjad";
 
-        [StringLength(20)]
-        public string? Finished { get; set; } = null!;
-        [Required]
-        public int CaseId { get; set; } 
-        public CaseEntity Cases { get; set; } = null!;
+        [StringLength(50)]
+        public string Closed { get; set; } = "Avslutad";
+
+        public ICollection<CustomerEntity> Customers { get; set; } = new HashSet<CustomerEntity>();
 
 
     }

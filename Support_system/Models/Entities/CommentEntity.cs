@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -8,21 +9,17 @@ using System.Threading.Tasks;
 
 namespace Support_system.Models.Entities
 {
-    internal class CommentsEntity
+    internal class CommentEntity
     {
         [Key]
         public int Id { get; set; }
 
         [StringLength(200)]
-        public string? TitleComment { get; set; } = null!;
-
-        [StringLength(200)]
-        public string? DescriptionComment { get; set; } = null!;
+        public string? UpdateComment { get; set; } = null!;
 
         [Column("updated_at")]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        public int CaseId { get; set; }
-        public CaseEntity Cases { get; set; } = null!;
+        public ICollection<CustomerEntity> Customers { get; set; } = new HashSet<CustomerEntity>();
     }
 }

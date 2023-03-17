@@ -1,11 +1,13 @@
 ﻿using Support_system.Services;
 
-var main = new MainService();
+var main = new CreateService();
 var list = new ListService();
 var update = new UpdateDeleteService();
 
+
 while (true)
 {
+
     Console.Clear();
     Console.WriteLine("SUPPORTSYSTEM");
     Console.WriteLine("");
@@ -54,3 +56,5 @@ while (true)
     Console.WriteLine("\nTryck på valfri knapp för att fortsätta");
     Console.ReadKey();
 }
+
+

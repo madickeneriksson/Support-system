@@ -25,13 +25,17 @@ namespace Support_system.Services
                     Console.WriteLine($" Efternamn: {customer.LastName}");
                     Console.WriteLine($" Email: {customer.Email}");
                     Console.WriteLine($" Telefonummer: {customer.PhoneNumber}");
+                    Console.WriteLine($" Adress: {customer.StreetName}, {customer.Postalcode} {customer.City}");
+
                     Console.WriteLine($" Titel på ärende: {customer.CaseTitle}");
                     Console.WriteLine($" Beskrivning av ärendet: {customer.Description}");
                     Console.WriteLine($" Ärendet skapat: {customer.CreatedAt}");
                     Console.WriteLine("");
                     Console.WriteLine("");
                     //Eventuell kommentar
-                  
+                    Console.WriteLine($"{customer.UpdateComment}");
+
+
                     Console.WriteLine("");
 
                 }
@@ -61,11 +65,16 @@ namespace Support_system.Services
                     Console.WriteLine($" Förnamn: {customer.FirstName}");
                     Console.WriteLine($" Efternamn: {customer.LastName}");
                     Console.WriteLine($" Email: {customer.Email}");
+                    Console.WriteLine($" Telefonummer: {customer.PhoneNumber}");
+                    Console.WriteLine($" Adress: {customer.StreetName}, {customer.Postalcode} {customer.City}");
                     Console.WriteLine($" Titel på ärende: {customer.CaseTitle}");
                     Console.WriteLine($" Beskrivning av ärendet: {customer.Description} ");
                     Console.WriteLine($" Skapat: {customer.CreatedAt}");
-                    //Eventuell kommentar
                    
+                    Console.WriteLine("");
+                    //Eventuell kommentar
+                    Console.WriteLine($"{customer.UpdateComment}");
+
                     Console.WriteLine("");
 
                 }

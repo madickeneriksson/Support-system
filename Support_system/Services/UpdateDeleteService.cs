@@ -35,11 +35,22 @@ namespace Support_system.Services
                     Console.Write("Telefonummer: ");
                     customer.PhoneNumber = Console.ReadLine() ?? "";
 
+                    Console.Write("Kundens gatuadress: ");
+                    customer.StreetName = Console.ReadLine() ?? "";
+
+                    Console.Write("Kundens postnummer: ");
+                    customer.Postalcode = Console.ReadLine() ?? "";
+
+                    Console.Write("Kundens Stad: ");
+                    customer.City = Console.ReadLine() ?? "";
+
                     Console.Write("Titel på ditt ärende: ");
                     customer.CaseTitle = Console.ReadLine() ?? "";
 
                     Console.Write("Beskrivning av ditt ärende: ");
                     customer.Description = Console.ReadLine() ?? "";
+
+                   
 
                     // update specific customer and case from database
                     await CasesService.UpdateAsync(customer);

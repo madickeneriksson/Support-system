@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Support_system.Migrations
 {
     /// <inheritdoc />
-    public partial class Initdatabase : Migration
+    public partial class Initdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,21 @@ namespace Support_system.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cases", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,9 +73,9 @@ namespace Support_system.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NotStarted = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Started = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Finished = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    NotStarted = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Started = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Closed = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CaseId = table.Column<int>(type: "int", nullable: false),
                     CasesId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -97,6 +112,9 @@ namespace Support_system.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Statuses");

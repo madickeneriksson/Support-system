@@ -12,8 +12,8 @@ using Support_system.Context;
 namespace Support_system.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230315105312_Initdatabase")]
-    partial class Initdatabase
+    [Migration("20230317173328_Initdb")]
+    partial class Initdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,6 +102,34 @@ namespace Support_system.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Support_system.Models.Entities.EmployeeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("Support_system.Models.Entities.StatusEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -116,20 +144,20 @@ namespace Support_system.Migrations
                     b.Property<int>("CasesId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Finished")
+                    b.Property<string>("Closed")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("NotStarted")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Started")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -152,7 +180,7 @@ namespace Support_system.Migrations
             modelBuilder.Entity("Support_system.Models.Entities.StatusEntity", b =>
                 {
                     b.HasOne("Support_system.Models.Entities.CaseEntity", "Cases")
-                        .WithMany("Statuses")
+                        .WithMany()
                         .HasForeignKey("CasesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -163,8 +191,6 @@ namespace Support_system.Migrations
             modelBuilder.Entity("Support_system.Models.Entities.CaseEntity", b =>
                 {
                     b.Navigation("Customers");
-
-                    b.Navigation("Statuses");
                 });
 #pragma warning restore 612, 618
         }

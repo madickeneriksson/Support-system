@@ -28,6 +28,21 @@ namespace Support_system.Models.Entities
 
         public CaseEntity Cases { get; set; } = null!;
 
-     
+        [Required]
+        public int AddressId { get; set; }
+
+        public AddressEntity Addresses { get; set; } = null!;
+
+        [Required]
+        public int CommentsId { get; set; }
+
+        public CommentEntity Comments { get; set; } = null!;
+
+        [Required]
+        public int StatusId { get; set; }
+
+        public StatusEntity Statuses { get; set; } = null!;
+
+
     }
 }
