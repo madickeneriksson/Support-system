@@ -12,8 +12,8 @@ using Support_system.Context;
 namespace Support_system.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230317204452_Comments")]
-    partial class Comments
+    [Migration("20230318181502_InitDatabase")]
+    partial class InitDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,10 +68,6 @@ namespace Support_system.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("created_at");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -100,6 +96,10 @@ namespace Support_system.Migrations
 
                     b.Property<int?>("CaseEntityId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UpdateComment")
                         .HasMaxLength(200)
@@ -169,62 +169,6 @@ namespace Support_system.Migrations
                         .IsUnique();
 
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("Support_system.Models.Entities.EmployeeEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("Support_system.Models.Entities.StatusEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Closed")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("NotStarted")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Started")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Statuses");
                 });
 
             modelBuilder.Entity("Support_system.Models.Entities.AddressEntity", b =>

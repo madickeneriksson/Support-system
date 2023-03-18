@@ -20,13 +20,12 @@ namespace Support_system.Services
                 Email = customer.Email,
                 PhoneNumber = customer.PhoneNumber, 
             };
-            var _caseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.CaseTitle == customer.CaseTitle && x.Description == customer.Description );
+            var _caseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.CaseTitle == customer.CaseTitle && x.Description == customer.Description);
             if (_caseEntity != null)
                 _customerEntity.CaseId = _caseEntity.Id;
             else
                 _customerEntity.Cases = new CaseEntity
                 {
-
                     CaseTitle = customer.CaseTitle,
                     Description = customer.Description,
                     CreatedAt = DateTime.UtcNow,
@@ -42,7 +41,7 @@ namespace Support_system.Services
                     City = customer.City,
                 };
 
-            var _commentEntity = await _context.Comments.FirstOrDefaultAsync(x => x.UpdateComment == customer.UpdateComment && x.UpdatedAt == customer.UpdatedAt);
+            var _commentEntity = await _context.Comments.FirstOrDefaultAsync(x => x.UpdateComment == customer.UpdateComment && x.UpdatedAt == customer.UpdatedAt && x.Status == customer.Status);
             if (_commentEntity != null)
                 _customerEntity.CommentsId = _commentEntity.Id;
             else
@@ -50,37 +49,11 @@ namespace Support_system.Services
                 {
                     UpdateComment = customer.UpdateComment,
                     UpdatedAt= DateTime.UtcNow,
-
-                };
-            var _statusEntity = await _context.Statuses.FirstOrDefaultAsync(x => x.NotStarted == customer.NotStarted && x.Started == customer.Started && x.Closed == customer.Closed);
-            if (_commentEntity != null)
-                _customerEntity.StatusId = _commentEntity.Id;
-            else
-                _customerEntity.Statuses = new StatusEntity
-                {
-                    NotStarted = customer.NotStarted,
-                    Started = customer.Started,
-                    Closed = customer.Closed,
+                    Status = customer.Status,
                 };
 
 
             _context.Add(_customerEntity);
-            await _context.SaveChangesAsync();
-        }
-
-
-
-        public static async Task SaveAsync(Employee employee)
-        {
-            var _employeeEntity = new EmployeeEntity
-            {
-                Id = employee.Id,
-                FirstName = employee.FirstName,
-                LastName = employee.LastName,
-                Email = employee.Email
-            };
-
-            _context.Add(_employeeEntity);
             await _context.SaveChangesAsync();
         }
 
@@ -102,12 +75,11 @@ namespace Support_system.Services
                     Description = _customer.Cases.Description,
                     CreatedAt = DateTime.Now,
                     UpdateComment = _customer.Comments.UpdateComment,
+                    Status = _customer.Comments.Status,
                     UpdatedAt = DateTime.Now,
                     StreetName = _customer.Addresses.SteetName,
                     Postalcode = _customer.Addresses.PostalCode,
-                    City= _customer.Addresses.City,
-
-
+                    City= _customer.Addresses.City,   
                 }); 
             return _customers;
         }
@@ -132,6 +104,7 @@ namespace Support_system.Services
                     StreetName = _customer.Addresses.SteetName,
                     Postalcode = _customer.Addresses.PostalCode,
                     City = _customer.Addresses.City,
+                    Status = _customer.Comments.Status,
                 };
             else
                 return null!;
@@ -142,23 +115,16 @@ namespace Support_system.Services
             var _customerEntity = await _context.Customers.Include(x => x.Cases).FirstOrDefaultAsync(x => x.Id == customer.Id);
             if (_customerEntity != null)
             {
-                if (!string.IsNullOrEmpty(customer.FirstName))
-                    _customerEntity.FirstName = customer.FirstName;
+                if (!string.IsNullOrEmpty(customer.FirstName)) _customerEntity.FirstName = customer.FirstName;
+                if (!string.IsNullOrEmpty(customer.LastName)) _customerEntity.LastName = customer.LastName;
+                if (!string.IsNullOrEmpty(customer.Email)) _customerEntity.Email = customer.Email;
+                if (!string.IsNullOrEmpty(customer.PhoneNumber)) _customerEntity.PhoneNumber = customer.PhoneNumber;
 
-                if (!string.IsNullOrEmpty(customer.LastName))
-                    _customerEntity.LastName = customer.LastName;
-
-                if (!string.IsNullOrEmpty(customer.Email))
-                    _customerEntity.Email = customer.Email;
-
-                if (!string.IsNullOrEmpty(customer.PhoneNumber))
-                    _customerEntity.PhoneNumber = customer.PhoneNumber;
-
-                if (!string.IsNullOrEmpty(customer.CaseTitle) || !string.IsNullOrEmpty(customer.Description) || !string.IsNullOrEmpty(customer.UpdateComment))
+                if (!string.IsNullOrEmpty(customer.CaseTitle) || !string.IsNullOrEmpty(customer.Description) || !string.IsNullOrEmpty(customer.UpdateComment) || !string.IsNullOrEmpty(customer.Status))
                 if (!string.IsNullOrEmpty(customer.StreetName) || !string.IsNullOrEmpty(customer.Postalcode) || !string.IsNullOrEmpty(customer.City))
-                if (!string.IsNullOrEmpty(customer.UpdateComment))
-                    {
-                var _commentEntity = await _context.Comments.FirstOrDefaultAsync(x => x.UpdateComment == customer.UpdateComment && x.UpdatedAt == customer.UpdatedAt);
+                {
+
+                var _commentEntity = await _context.Comments.FirstOrDefaultAsync(x => x.UpdateComment == customer.UpdateComment && x.UpdatedAt == customer.UpdatedAt && x.Status == customer.Status);
                 if (_commentEntity != null)
                 _customerEntity.CommentsId = _commentEntity.Id;
                 else
@@ -166,9 +132,10 @@ namespace Support_system.Services
                 {
                     UpdateComment = customer.UpdateComment,
                     UpdatedAt= DateTime.UtcNow,
+                    Status= customer.Status,
 
                 };
-                    var _caseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.CaseTitle == customer.CaseTitle && x.Description == customer.Description && x.UpdateComment == customer.UpdateComment);
+                var _caseEntity = await _context.Cases.FirstOrDefaultAsync(x => x.CaseTitle == customer.CaseTitle && x.Description == customer.Description);
                     if (_caseEntity != null)
                         _customerEntity.CaseId = _caseEntity.Id;
                     else
@@ -178,15 +145,16 @@ namespace Support_system.Services
                             Description = customer.Description,
                             CreatedAt = DateTime.Now,
                         };
-                        var _adressEntity = await _context.Addresses.FirstOrDefaultAsync(x => x.SteetName == customer.StreetName && x.PostalCode == customer.Postalcode && x.City == customer.City);
-                        if (_adressEntity != null)
-                            _customerEntity.AddressId = _adressEntity.Id;
-                        else
+                 var _adressEntity = await _context.Addresses.FirstOrDefaultAsync(x => x.SteetName == customer.StreetName && x.PostalCode == customer.Postalcode && x.City == customer.City);
+                      if (_adressEntity != null)
+                           _customerEntity.AddressId = _adressEntity.Id;
+                      
+                      else
                             _customerEntity.Addresses = new AddressEntity
-                            {
-                                SteetName = customer.StreetName,
-                                PostalCode = customer.Postalcode,
-                                City = customer.City,
+                        {
+                           SteetName = customer.StreetName,
+                           PostalCode = customer.Postalcode,
+                           City = customer.City,
                         };
                     }
                 _context.Update(_customerEntity);

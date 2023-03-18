@@ -7,7 +7,7 @@ namespace Support_system.Context
 {
     internal class DataContext : DbContext
     {
-        private readonly string _connectionstring = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Conle\OneDrive\Dokument\database_sql.mdf;Integrated Security=True;Connect Timeout=30";
+        private readonly string _connectionstring = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Conle\OneDrive\Dokument\sql_support_system_db_one.mdf;Integrated Security=True;Connect Timeout=30";
 
 
         #region context and overrides
@@ -28,12 +28,7 @@ namespace Support_system.Context
 
         public DbSet<CaseEntity> Cases { get; set; } = null!;
         public DbSet<CustomerEntity> Customers { get; set; } = null!;
-        public DbSet<EmployeeEntity> Employees { get; set; } = null!;
-
-        public DbSet<StatusEntity> Statuses { get; set; } = null!;
-
         public DbSet<AddressEntity> Addresses { get; set; } = null!;
-
         public DbSet<CommentEntity> Comments { get; set; }
 
 

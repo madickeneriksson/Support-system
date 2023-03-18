@@ -7,8 +7,7 @@ namespace Support_system.Models.Entities
 {
     internal class CaseEntity
     {
-   
-
+  
         [Key]
         public int Id { get; set; }
 
@@ -19,7 +18,7 @@ namespace Support_system.Models.Entities
         public string Description { get; set; } = null!;
 
         [Column("created_at")]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt = DateTime.Now;
 
         [StringLength(200)]
         public string? UpdateComment { get; set; } = null!;
@@ -27,16 +26,11 @@ namespace Support_system.Models.Entities
         [Column("updated_at")]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-  
+    
 
         public ICollection<CustomerEntity> Customers { get; set; } = new HashSet<CustomerEntity>();
         public ICollection<AddressEntity> Addresses { get; set; } = new HashSet<AddressEntity>();
         public ICollection<CommentEntity> Comments { get; set; } = new HashSet<CommentEntity>();
-        public ICollection<StatusEntity> Statuses { get; set; } = new HashSet<StatusEntity>();
-
-
-
-
 
     }
 

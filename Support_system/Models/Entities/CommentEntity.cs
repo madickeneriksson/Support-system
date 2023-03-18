@@ -20,6 +20,10 @@ namespace Support_system.Models.Entities
         [Column("updated_at")]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
+        [StringLength(50)]
+        public string? Status { get; set; } = null!;
+
         public ICollection<CustomerEntity> Customers { get; set; } = new HashSet<CustomerEntity>();
+
     }
 }

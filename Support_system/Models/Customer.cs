@@ -24,9 +24,7 @@ namespace Support_system.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? UpdateComment { get; set; } 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        public string NotStarted { get; set; } = "Ej Påbörjad";
-        public string Started { get; set; } = "Påbörjad";
-        public string Closed { get; set; } = "Avslutad";
+        public string? Status { get; set; } = null!;
 
 
 

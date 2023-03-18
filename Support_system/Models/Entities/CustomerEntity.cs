@@ -38,11 +38,5 @@ namespace Support_system.Models.Entities
 
         public CommentEntity Comments { get; set; } = null!;
 
-        [Required]
-        public int StatusId { get; set; }
-
-        public StatusEntity Statuses { get; set; } = null!;
-
-
     }
 }
